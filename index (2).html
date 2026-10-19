@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#8b9df5">
+  <title>Minha Mochila Digital 💙</title>
+  <style>
+    :root{
+      --blue:#8ea7ff; --blue-dark:#536bd0; --lilac:#c8b5ff; --pink:#ffd5e8;
+      --ink:#394164; --muted:#7d83a4; --paper:#ffffff; --bg:#f4f3ff;
+      --line:#e8e6fb; --shadow:0 12px 30px rgba(90,91,160,.10);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family: "Trebuchet MS", Arial, sans-serif;color:var(--ink);
+      background:radial-gradient(circle at 10% 5%,#e6f4ff 0,transparent 28%),
+      radial-gradient(circle at 90% 12%,#fbe5f5 0,transparent 25%),var(--bg);min-height:100vh}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    .app{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100vh}
+    aside{padding:25px 17px;background:rgba(255,255,255,.76);border-right:1px solid var(--line);backdrop-filter:blur(12px)}
+    .brand{display:flex;align-items:center;gap:11px;padding:4px 8px 25px}
+    .brand-icon{width:48px;height:48px;border-radius:17px;display:grid;place-items:center;font-size:26px;background:linear-gradient(135deg,#a7d9ff,#cdbaff);box-shadow:0 7px 15px #aeb8ed55}
+    .brand h1{font-size:17px;margin:0 0 4px}.brand p{font-size:11px;color:var(--muted);margin:0}
+    .nav-label{font-size:10px;font-weight:bold;color:#a0a3bf;letter-spacing:1.4px;padding:12px 12px 8px}
+    .nav{display:grid;gap:7px}
+    .nav button{border:0;background:transparent;color:#6e7599;text-align:left;padding:12px 13px;border-radius:13px;font-weight:700;display:flex;align-items:center;gap:12px}
+    .nav button span{font-size:18px;width:22px;text-align:center}
+    .nav button:hover,.nav button.active{background:linear-gradient(100deg,#e5edff,#f0e9ff);color:#4c5fc0}
+    .side-note{margin-top:28px;padding:16px;border-radius:18px;background:linear-gradient(145deg,#e4f4ff,#f2eaff);font-size:12px;line-height:1.55}
+    .side-note strong{display:block;font-size:14px;margin-bottom:5px}
+    main{padding:27px clamp(16px,3vw,42px) 45px;min-width:0;max-width:1500px;width:100%;margin:auto}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}
+    .crumb{font-size:12px;color:var(--muted)}.today{font-size:12px;font-weight:bold;color:#6974ac;background:#fff;padding:10px 14px;border:1px solid var(--line);border-radius:30px}
+    .hero{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:clamp(24px,4vw,42px);border-radius:28px;background:linear-gradient(115deg,#bfe7ff 0%,#d9d0ff 55%,#ffe0ef 100%);box-shadow:var(--shadow);margin-bottom:23px}
+    .hero:after{content:"✦  ·  ✧  ·  ✦";position:absolute;right:24px;top:17px;color:#fff9;font-size:23px;letter-spacing:10px}
+    .hero-copy{position:relative;z-index:1;max-width:620px}
+    .eyebrow{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;color:#626bb0}
+    .hero h2{font-size:clamp(27px,4vw,42px);line-height:1.08;margin:11px 0 10px;color:#34416f}
+    .hero p{font-size:14px;line-height:1.6;color:#56628f;max-width:490px;margin:0 0 19px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:9px}
+    .btn{border:0;border-radius:12px;padding:11px 15px;font-size:12px;font-weight:800;transition:.18s}
+    .btn:hover{transform:translateY(-1px)}.btn-primary{background:#6276d8;color:white;box-shadow:0 6px 14px #6276d833}.btn-light{background:#ffffffbb;color:#4c5b9d;border:1px solid #fff}
+    .hero-art{font-size:clamp(65px,9vw,115px);filter:drop-shadow(0 10px 8px #8b8bd333);transform:rotate(7deg);flex-shrink:0;margin-right:20px}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 14px}
+    .section-head h3{font-size:18px;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:5px 0 0}
+    .text-btn{border:0;background:transparent;color:#6373cf;font-size:12px;font-weight:800}
+    .quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+    .quick-card{border:1px solid var(--line);background:#ffffffd9;border-radius:18px;padding:17px;box-shadow:0 5px 18px #7b7cb00b;cursor:pointer;text-align:left;color:inherit;min-width:0}
+    .quick-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .quick-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;font-size:21px;margin-bottom:13px}
+    .quick-card strong{display:block;font-size:13px;margin-bottom:5px}.quick-card small{color:var(--muted);font-size:11px;line-height:1.4}
+    .two-col{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(270px,.85fr);gap:17px}
+    .panel{background:#ffffffdf;border:1px solid var(--line);border-radius:21px;padding:19px;box-shadow:0 5px 18px #7b7cb00b;min-width:0}
+    .panel h3{font-size:16px;margin:0}.panel-sub{font-size:11px;color:var(--muted);margin:5px 0 16px}
+    .calendar-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px;gap:8px}
+    .cal-controls{display:flex;align-items:center;gap:8px}.cal-controls button{border:1px solid var(--line);background:white;border-radius:9px;padding:5px 10px;color:#6875bf}
+    .cal-month{font-size:13px;font-weight:800;min-width:130px;text-align:center}
+    .calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+    .weekday{text-align:center;font-size:10px;color:#9a9cba;padding:5px 0;font-weight:bold}
+    .day{border:0;background:#f8f8ff;border-radius:10px;min-height:37px;color:#555e85;font-size:11px;position:relative}
+    .day:hover{background:#e8ecff}.day.muted{opacity:.35}.day.today{background:#dce8ff;color:#4258b9;font-weight:bold;outline:1px solid #a7b8ff}
+    .day.has-event:after{content:"";width:5px;height:5px;border-radius:50%;background:#f49bc7;position:absolute;bottom:4px;left:calc(50% - 2px)}
+    .day.selected{background:#817fe0;color:white}
+    .task-list{display:grid;gap:9px}
+    .task{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border-radius:13px;background:#f8f8ff}
+    .task input{accent-color:#7b86df;margin-top:3px}.task-text{flex:1;font-size:12px;line-height:1.45;overflow-wrap:anywhere}.task-text.done{text-decoration:line-through;color:#a2a5bd}
+    .task-date{font-size:10px;color:#8b91b2;display:block;margin-top:3px}.delete-mini{border:0;background:transparent;color:#b1a6c8;font-size:15px}
+    .empty{font-size:12px;color:var(--muted);padding:15px;text-align:center;background:#f8f8ff;border-radius:12px}
+    .project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .project-card{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:white;min-width:0}
+    .project-cover{height:110px;display:grid;place-items:center;font-size:38px;background:linear-gradient(135deg,#d8efff,#e8dfff)}
+    .project-body{padding:14px}.project-body h4{margin:0 0 6px;font-size:13px;overflow-wrap:anywhere}.project-body p{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 12px;overflow-wrap:anywhere}
+    .project-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.project-actions a{font-size:11px;font-weight:bold;color:#6373cf;text-decoration:none}.project-actions button{font-size:11px;color:#a18bb8;background:transparent;border:0}
+    .page{display:none}.page.active{display:block}
+    .page-intro{margin:6px 0 20px}.page-intro h2{font-size:27px;margin:0 0 7px}.page-intro p{color:var(--muted);font-size:13px;margin:0;line-height:1.6}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:17px 0}
+    .search{border:1px solid var(--line);background:white;border-radius:12px;padding:11px 13px;min-width:210px;max-width:100%;outline-color:#aeb9ff}
+    .subject-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+    .subject-card{padding:18px;border-radius:17px;border:1px solid var(--line);background:white}
+    .subject-card .sub-icon{font-size:26px}.subject-card h4{margin:10px 0 6px}.subject-card p{font-size:12px;line-height:1.5;color:var(--muted);margin:0 0 13px}
+    .form-panel{max-width:650px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:11px;font-weight:bold;color:#687096}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px;color:var(--ink);outline-color:#aeb9ff}.field textarea{min-height:135px;resize:vertical;line-height:1.6}
+    .notice{font-size:11px;line-height:1.6;color:#8589a7;background:#f6f4ff;border-radius:12px;padding:12px;margin-top:12px}
+    .note-card{border:1px solid var(--line);background:white;border-radius:15px;padding:16px;margin-bottom:10px}.note-card h4{margin:0 0 7px;font-size:14px}.note-card p{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.6;color:#707797;margin:0 0 10px}
+    footer{text-align:center;color:#a0a2bd;font-size:10px;padding:30px 0 0}
+    .toast{position:fixed;bottom:20px;right:20px;background:#4d5bb0;color:white;padding:12px 17px;border-radius:13px;box-shadow:var(--shadow);font-size:12px;opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s;z-index:5}.toast.show{opacity:1;transform:translateY(0)}
+    @media(max-width:1000px){.app{grid-template-columns:200px minmax(0,1fr)}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two-col{grid-template-columns:1fr}.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:650px){.app{display:block}aside{padding:12px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:3px 5px 12px}.nav-label,.side-note{display:none}.nav{display:flex;overflow-x:auto;padding-bottom:3px}.nav button{white-space:nowrap;padding:9px 11px;font-size:11px}.nav button span{font-size:15px;width:auto}main{padding:18px 13px 30px}.topbar{margin-bottom:15px}.hero{padding:24px 20px;border-radius:22px}.hero-art{font-size:58px;margin:0}.hero p{font-size:12px}.hero h2{font-size:29px}.quick-grid{gap:9px}.quick-card{padding:13px}.quick-card strong{font-size:12px}.project-grid,.subject-grid{grid-template-columns:1fr 1fr}.project-cover{height:85px}.panel{padding:14px}.form-grid{grid-template-columns:1fr}.cal-month{min-width:105px}.day{min-height:34px}}
+    @media(max-width:390px){.hero-art{display:none}.project-grid,.subject-grid{grid-template-columns:1fr}.today{font-size:10px;padding:8px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="brand-icon">🎒</div>
+      <div><h1>Minha Mochila</h1><p>meu cantinho de estudos ✨</p></div>
+    </div>
+    <div class="nav-label">MEU ESPAÇO</div>
+    <nav class="nav" aria-label="Menu principal">
+      <button class="active" data-page="inicio"><span>🏠</span> Início</button>
+      <button data-page="materias"><span>📚</span> Matérias</button>
+      <button data-page="planner"><span>🗓️</span> Planner</button>
+      <button data-page="projetos"><span>🪄</span> Galeria de projetos</button>
+      <button data-page="caderno"><span>📝</span> Caderno digital</button>
+    </nav>
+    <div class="side-note"><strong>Ohana significa família 💙</strong>Organize seus estudos no seu ritmo. Um pouquinho por dia já é progresso!</div>
+  </aside>
+
+  <main>
+    <div class="topbar"><div class="crumb">MINHA ÁREA PESSOAL / <span id="crumb">INÍCIO</span></div><div class="today" id="todayLabel">✨ Seu espaço especial</div></div>
+
+    <section class="page active" id="page-inicio">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">✦ seu universo de estudos ✦</div>
+          <h2>Oi, estudante!<br>Que bom ter você aqui 💙</h2>
+          <p>Este é o seu cantinho para organizar tarefas, guardar seus projetos e deixar suas ideias brilharem. Pegue sua mochila e vamos começar!</p>
+          <div class="hero-actions"><button class="btn btn-primary" data-go="planner">📅 Abrir meu planner</button><button class="btn btn-light" data-go="projetos">🖼️ Ver meus projetos</button></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">🌺👽</div>
+      </div>
+      <div class="section-head"><div><h3>Seu espaço, suas regras ✨</h3><p>Escolha por onde quer começar.</p></div></div>
+      <div class="quick-grid">
+        <button class="quick-card" data-go="materias"><div class="quick-icon" style="background:#e2f2ff">📚</div><strong>Minhas matérias</strong><small>Organize cada disciplina</small></button>
+        <button class="quick-card" data-go="planner"><div class="quick-icon" style="background:#eee6ff">🗓️</div><strong>Planner escolar</strong><small>Provas, tarefas e datas</small></button>
+        <button class="quick-card" data-go="projetos"><div class="quick-icon" style="background:#ffe8f2">🖼️</div><strong>Galeria de projetos</strong><small>Seus sites em um só lugar</small></button>
+        <button class="quick-card" data-go="caderno"><div class="quick-icon" style="background:#e4f7ed">📝</div><strong>Caderno digital</strong><small>Anote suas ideias</small></button>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="section-head"><div><h3>📅 Próximas tarefas</h3><p>Não deixe nada escapar!</p></div><button class="text-btn" data-go="planner">Ver planner →</button></div>
+          <div class="panel"><div id="homeTasks" class="task-list"></div></div>
+        </div>
+        <div>
+          <div class="section-head"><div><h3>🌟 Projetos recentes</h3><p>Suas criações favoritas.</p></div><button class="text-btn" data-go="projetos">Ver galeria →</button></div>
+          <div class="panel"><div id="homeProjects" class="project-grid"></div></div>
+        </div>
+      </div>
+      <footer>Feito com carinho para o seu universo de estudos 💙</footer>
+    </section>
+
+    <section class="page" id="page-materias">
+      <div class="page-intro"><h2>📚 Minhas matérias</h2><p>Um cantinho para cada disciplina. Adicione as matérias que você estuda.</p></div>
+      <div class="toolbar"><input class="search" id="subjectSearch" placeholder="🔎 Procurar matéria..."><button class="btn btn-primary" id="addSubjectBtn">＋ Nova matéria</button></div>
+      <div class="subject-grid" id="subjectGrid"></div>
+      <div class="notice">Dica: clique em “Nova matéria” para criar uma disciplina e adicionar uma descrição ou lembrete.</div>
+    </section>
+
+    <section class="page" id="page-planner">
+      <div class="page-intro"><h2>🗓️ Meu planner</h2><p>Planeje seu mês, acompanhe as datas e marque as tarefas concluídas.</p></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="calendar-head"><h3>Calendário</h3><div class="cal-controls"><button id="prevMonth" aria-label="Mês anterior">‹</button><div class="cal-month" id="calMonth"></div><button id="nextMonth" aria-label="Próximo mês">›</button></div></div>
+          <div class="calendar" id="calendar"></div>
+          <div class="notice">Clique em um dia para escolher a data de uma tarefa. Os pontinhos rosas indicam dias com tarefas.</div>
+        </div>
+        <div class="panel">
+          <h3>✏️ Adicionar tarefa</h3><p class="panel-sub">Prova, trabalho, compromisso ou lembrete.</p>
+          <form id="taskForm">
+            <div class="field"><label for="taskTitle">Nome da tarefa</label><input id="taskTitle" required maxlength="100" placeholder="Ex.: Estudar para a prova de Física"></div>
+            <div class="form-grid"><div class="field"><label for="taskDate">Data</label><input id="taskDate" type="date" required></div><div class="field"><label for="taskType">Tipo</label><select id="taskType"><option>Estudo</option><option>Prova</option><option>Trabalho</option><option>Compromisso</option><option>Outro</option></select></div></div>
+            <button class="btn btn-primary" type="submit">＋ Salvar tarefa</button>
+          </form>
+          <div class="section-head"><div><h3>Minha lista</h3><p id="taskListCaption">Todas as tarefas</p></div></div>
+          <div class="task-list" id="allTasks"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-projetos">
+      <div class="page-intro"><h2>🖼️ Galeria de projetos</h2><p>Guarde aqui os sites e páginas que você criou. Cada cartão pode abrir o seu projeto.</p></div>
+      <div class="toolbar"><input class="search" id="projectSearch" placeholder="🔎 Procurar projeto..."><button class="btn btn-primary" id="addProjectBtn">＋ Adicionar projeto</button></div>
+      <div class="project-grid" id="projectGrid"></div>
+      <div class="notice">Para adicionar um site, copie o link publicado (por exemplo, do GitHub Pages) e cole no campo de endereço. Os links são abertos em uma nova aba.</div>
+    </section>
+
+    <section class="page" id="page-caderno">
+      <div class="page-intro"><h2>📝 Meu caderno digital</h2><p>Escreva resumos, ideias, lembretes ou conteúdos das aulas.</p></div>
+      <div class="panel form-panel">
+        <form id="noteForm">
+          <div class="field"><label for="noteTitle">Título da anotação</label><input id="noteTitle" maxlength="100" required placeholder="Ex.: Resumo de Química"></div>
+          <div class="field"><label for="noteSubject">Matéria (opcional)</label><input id="noteSubject" maxlength="80" placeholder="Ex.: Química"></div>
+          <div class="field"><label for="noteBody">Sua anotação</label><textarea id="noteBody" required placeholder="Escreva aqui suas anotações..."></textarea></div>
+          <button class="btn btn-primary" type="submit">💾 Salvar anotação</button>
+        </form>
+        <div class="notice">Suas anotações ficam salvas neste navegador. Evite usar este espaço para senhas ou informações pessoais sensíveis.</div>
+      </div>
+      <div class="section-head"><div><h3>📒 Anotações salvas</h3><p>Você pode apagar uma anotação quando não precisar mais dela.</p></div></div>
+      <div id="notesList"></div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="projectDialog" style="border:0;border-radius:20px;padding:24px;width:min(92vw,520px);color:#394164;box-shadow:0 20px 60px #30305a33">
+  <form id="projectForm">
+    <h3 style="margin-top:0">🪄 Adicionar projeto</h3>
+    <div class="field"><label for="projectTitle">Nome do projeto</label><input id="projectTitle" required maxlength="80" placeholder="Ex.: Site Setembro Verde"></div>
+    <div class="field"><label for="projectDescription">Descrição</label><textarea id="projectDescription" maxlength="250" style="min-height:75px" placeholder="Conte um pouquinho sobre ele..."></textarea></div>
+    <div class="field"><label for="projectUrl">Link do site</label><input id="projectUrl" type="url" required placeholder="https://seusite.github.io/projeto/"></div>
+    <div class="form-grid"><div class="field"><label for="projectEmoji">Ícone</label><select id="projectEmoji"><option>🌐</option><option>🌿</option><option>📚</option><option>🎮</option><option>💻</option><option>🎨</option><option>⭐</option><option>🦋</option></select></div><div class="field"><label for="projectColor">Cor do cartão</label><select id="projectColor"><option value="blue">Azul</option><option value="lilac">Lilás</option><option value="pink">Rosa</option><option value="green">Verde</option></select></div></div>
+    <div style="display:flex;gap:9px;justify-content:flex-end;margin-top:8px"><button class="btn btn-light" type="button" id="cancelProject">Cancelar</button><button class="btn btn-primary" type="submit">Guardar projeto</button></div>
+  </form>
+</dialog>
+
+<dialog id="subjectDialog" style="border:0;border-radius:20px;padding:24px;width:min(92vw,460px);color:#394164;box-shadow:0 20px 60px #30305a33">
+  <form id="subjectForm"><h3 style="margin-top:0">📚 Nova matéria</h3>
+    <div class="field"><label for="subjectName">Nome da matéria</label><input id="subjectName" required maxlength="60" placeholder="Ex.: Matemática"></div>
+    <div class="field"><label for="subjectDescription">Descrição ou lembrete</label><textarea id="subjectDescription" maxlength="180" style="min-height:75px" placeholder="Ex.: conteúdos para revisar"></textarea></div>
+    <div class="field"><label for="subjectEmoji">Ícone</label><select id="subjectEmoji"><option>📚</option><option>✍️</option><option>➗</option><option>🧪</option><option>🔬</option><option>🌎</option><option>💻</option><option>🎨</option><option>📖</option></select></div>
+    <div style="display:flex;gap:9px;justify-content:flex-end"><button class="btn btn-light" type="button" id="cancelSubject">Cancelar</button><button class="btn btn-primary" type="submit">Salvar matéria</button></div>
+  </form>
+</dialog>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const STORAGE_KEY = 'minhaMochilaDigital_v1';
+  const today = new Date();
+  const dateISO = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const niceDate = s => { if(!s) return ''; const d=new Date(s+'T12:00:00'); return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'}); };
+  const safeUrl = s => { try { const u=new URL(s); return ['http:','https:'].includes(u.protocol) ? u.href : null; } catch { return null; } };
+  const initial = {
+    tasks: [],
+    projects: [],
+    notes: [],
+    subjects: [
+      {id:1,name:'Português',description:'Textos, gramática e redação.',emoji:'✍️'},
+      {id:2,name:'Matemática',description:'Fórmulas, exercícios e revisões.',emoji:'➗'},
+      {id:3,name:'Física',description:'Conceitos, fórmulas e experiências.',emoji:'🔬'},
+      {id:4,name:'Química',description:'Resumos, reações e atividades.',emoji:'🧪'},
+      {id:5,name:'Biologia',description:'A vida e seus processos.',emoji:'🌱'},
+      {id:6,name:'Informática',description:'Programação e tecnologia.',emoji:'💻'}
+    ]
+  };
+  let data;
+  try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || structuredClone(initial); }
+  catch { data = JSON.parse(JSON.stringify(initial)); }
+  data.tasks ||= []; data.projects ||= []; data.notes ||= []; data.subjects ||= [];
+  let viewYear=today.getFullYear(), viewMonth=today.getMonth(), selectedDate=dateISO(today);
+  let nextId=Date.now();
+  const save = () => { try { localStorage.setItem(STORAGE_KEY,JSON.stringify(data)); } catch { toast('Não foi possível salvar. Verifique o espaço do navegador.'); } };
+  let toastTimer;
+  function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2400);}
+  function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function go(page){
+    document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));
+    document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+    const names={inicio:'INÍCIO',materias:'MATÉRIAS',planner:'PLANNER',projetos:'GALERIA DE PROJETOS',caderno:'CADERNO DIGITAL'};
+    $('crumb').textContent=names[page]||'INÍCIO';
+    if(page==='planner') renderCalendar();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+  document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+  $('todayLabel').textContent='📅 '+today.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'});
+
+  function taskMarkup(t){
+    return `<div class="task"><input type="checkbox" data-task-check="${t.id}" ${t.done?'checked':''} aria-label="Marcar tarefa como concluída"><div class="task-text ${t.done?'done':''}">${esc(t.title)}<span class="task-date">${esc(t.type||'Tarefa')} · ${niceDate(t.date)}</span></div><button class="delete-mini" data-task-delete="${t.id}" aria-label="Apagar tarefa">×</button></div>`;
+  }
+  function renderTasks(){
+    const upcoming=[...data.tasks].filter(t=>!t.done).sort((a,b)=>a.date.localeCompare(b.date));
+    $('homeTasks').innerHTML=upcoming.length?upcoming.slice(0,3).map(taskMarkup).join(''):'<div class="empty">Tudo tranquilo por aqui! ✨<br>Adicione uma tarefa no planner.</div>';
+    const sorted=[...data.tasks].sort((a,b)=>a.date.localeCompare(b.date));
+    $('allTasks').innerHTML=sorted.length?sorted.map(taskMarkup).join(''):'<div class="empty">Nenhuma tarefa ainda. Adicione a primeira acima! 🌷</div>';
+    $('taskListCaption').textContent=`${data.tasks.length} tarefa(s)`;
+    document.querySelectorAll('[data-task-check]').forEach(el=>el.addEventListener('change',()=>{
+      const t=data.tasks.find(x=>x.id==el.dataset.taskCheck);if(t)t.done=el.checked;save();renderTasks();renderCalendar();
+    }));
+    document.querySelectorAll('[data-task-delete]').forEach(el=>el.addEventListener('click',()=>{
+      data.tasks=data.tasks.filter(x=>x.id!=el.dataset.taskDelete);save();renderTasks();renderCalendar();toast('Tarefa apagada.');
+    }));
+  }
+  function renderCalendar(){
+    const first=new Date(viewYear,viewMonth,1), last=new Date(viewYear,viewMonth+1,0);
+    $('calMonth').textContent=first.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+    const weekdays=['D','S','T','Q','Q','S','S'];
+    let html=weekdays.map(w=>`<div class="weekday">${w}</div>`).join('');
+    const start=first.getDay();
+    const prevDays=new Date(viewYear,viewMonth,0).getDate();
+    const eventDates=new Set(data.tasks.map(t=>t.date));
+    for(let i=0;i<42;i++){
+      let day,monthOffset=0;
+      if(i<start){day=prevDays-start+i+1;monthOffset=-1;}
+      else if(i>=start+last.getDate()){day=i-(start+last.getDate())+1;monthOffset=1;}
+      else day=i-start+1;
+      const d=new Date(viewYear,viewMonth+monthOffset,day), iso=dateISO(d);
+      const classes=['day'];
+      if(monthOffset)classes.push('muted');
+      if(iso===dateISO(today))classes.push('today');
+      if(iso===selectedDate)classes.push('selected');
+      if(eventDates.has(iso))classes.push('has-event');
+      html+=`<button class="${classes.join(' ')}" data-date="${iso}" aria-label="${esc(d.toLocaleDateString('pt-BR'))}">${day}</button>`;
+    }
+    $('calendar').innerHTML=html;
+    $('calendar').querySelectorAll('[data-date]').forEach(b=>b.addEventListener('click',()=>{
+      selectedDate=b.dataset.date;const d=new Date(selectedDate+'T12:00:00');viewYear=d.getFullYear();viewMonth=d.getMonth();$('taskDate').value=selectedDate;renderCalendar();
+      $('taskListCaption').textContent='Tarefas de '+niceDate(selectedDate);
+      const dayTasks=data.tasks.filter(t=>t.date===selectedDate);
+      $('allTasks').innerHTML=dayTasks.length?dayTasks.map(taskMarkup).join(''):'<div class="empty">Nenhuma tarefa nesta data. Você pode adicionar uma! 🌷</div>';
+      attachTaskActions();
+    }));
+    $('taskDate').value=selectedDate;
+  }
+  function attachTaskActions(){
+    document.querySelectorAll('[data-task-check]').forEach(el=>el.addEventListener('change',()=>{
+      const t=data.tasks.find(x=>x.id==el.dataset.taskCheck);if(t)t.done=el.checked;save();renderTasks();renderCalendar();
+    }));
+    document.querySelectorAll('[data-task-delete]').forEach(el=>el.addEventListener('click',()=>{
+      data.tasks=data.tasks.filter(x=>x.id!=el.dataset.taskDelete);save();renderTasks();renderCalendar();
+    }));
+  }
+  $('prevMonth').addEventListener('click',()=>{viewMonth--;if(viewMonth<0){viewMonth=11;viewYear--;}renderCalendar();});
+  $('nextMonth').addEventListener('click',()=>{viewMonth++;if(viewMonth>11){viewMonth=0;viewYear++;}renderCalendar();});
+  $('taskForm').addEventListener('submit',e=>{
+    e.preventDefault();data.tasks.push({id:++nextId,title:$('taskTitle').value.trim(),date:$('taskDate').value,type:$('taskType').value,done:false});
+    save();e.target.reset();selectedDate=dateISO(today);$('taskDate').value=selectedDate;renderTasks();renderCalendar();toast('Tarefa salva no planner! 💙');
+  });
+
+  const projectColors={blue:'linear-gradient(135deg,#d8efff,#e8dfff)',lilac:'linear-gradient(135deg,#e4ddff,#f8e5ff)',pink:'linear-gradient(135deg,#ffe0ef,#fff0f6)',green:'linear-gradient(135deg,#d8f5e6,#e0f5ff)'};
+  function projectMarkup(p){
+    const url=safeUrl(p.url);
+    return `<article class="project-card"><div class="project-cover" style="background:${projectColors[p.color]||projectColors.blue}">${esc(p.emoji||'🌐')}</div><div class="project-body"><h4>${esc(p.title)}</h4><p>${esc(p.description||'Um projeto especial guardado na mochila.')}</p><div class="project-actions">${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Abrir projeto ↗</a>`:'<span>Link inválido</span>'}<button data-project-delete="${p.id}">Excluir</button></div></div></article>`;
+  }
+  function renderProjects(){
+    const q=($('projectSearch')?.value||'').toLowerCase();
+    const projects=data.projects.filter(p=>(p.title+' '+p.description).toLowerCase().includes(q));
+    $('projectGrid').innerHTML=projects.length?projects.map(projectMarkup).join(''):'<div class="empty" style="grid-column:1/-1">Sua galeria está esperando seus projetos! 🌟<br>Clique em “Adicionar projeto” para guardar seu primeiro site.</div>';
+    const recent=[...data.projects].slice(-2).reverse();
+    $('homeProjects').innerHTML=recent.length?recent.map(p=>`<div class="project-card"><div class="project-cover" style="height:75px;background:${projectColors[p.color]||projectColors.blue}">${esc(p.emoji||'🌐')}</div><div class="project-body"><h4>${esc(p.title)}</h4><div class="project-actions"><a href="${esc(safeUrl(p.url)||'#')}" target="_blank" rel="noopener noreferrer">Abrir ↗</a></div></div></div>`).join(''):'<div class="empty" style="grid-column:1/-1">Seus projetos vão aparecer aqui 💫</div>';
+    document.querySelectorAll('[data-project-delete]').forEach(b=>b.addEventListener('click',()=>{
+      if(confirm('Deseja excluir este projeto da galeria?')){data.projects=data.projects.filter(p=>p.id!=b.dataset.projectDelete);save();renderProjects();toast('Projeto removido.');}
+    }));
+  }
+  $('projectSearch').addEventListener('input',renderProjects);
+  $('addProjectBtn').addEventListener('click',()=>$('projectDialog').showModal());
+  $('cancelProject').addEventListener('click',()=>$('projectDialog').close());
+  $('projectForm').addEventListener('submit',e=>{
+    e.preventDefault();const url=safeUrl($('projectUrl').value.trim());if(!url){toast('Use um link válido que comece com https://');return;}
+    data.projects.push({id:++nextId,title:$('projectTitle').value.trim(),description:$('projectDescription').value.trim(),url,emoji:$('projectEmoji').value,color:$('projectColor').value});
+    save();e.target.reset();$('projectDialog').close();renderProjects();toast('Projeto guardado na galeria! 🪄');
+  });
+
+  function renderSubjects(){
+    const q=($('subjectSearch').value||'').toLowerCase();
+    const list=data.subjects.filter(s=>(s.name+' '+s.description).toLowerCase().includes(q));
+    $('subjectGrid').innerHTML=list.length?list.map(s=>`<article class="subject-card"><div class="sub-icon">${esc(s.emoji||'📚')}</div><h4>${esc(s.name)}</h4><p>${esc(s.description||'Sua área para esta matéria.')}</p><button class="btn btn-light" data-subject-note="${s.id}">✏️ Criar anotação</button> <button class="text-btn" data-subject-delete="${s.id}">Excluir</button></article>`).join(''):'<div class="empty" style="grid-column:1/-1">Nenhuma matéria encontrada.</div>';
+    document.querySelectorAll('[data-subject-note]').forEach(b=>b.addEventListener('click',()=>{
+      const s=data.subjects.find(x=>x.id==b.dataset.subjectNote);go('caderno');$('noteSubject').value=s?.name||'';$('noteTitle').value=s?'Anotações de '+s.name:'';$('noteBody').focus();
+    }));
+    document.querySelectorAll('[data-subject-delete]').forEach(b=>b.addEventListener('click',()=>{
+      if(confirm('Excluir esta matéria?')){data.subjects=data.subjects.filter(x=>x.id!=b.dataset.subjectDelete);save();renderSubjects();toast('Matéria excluída.');}
+    }));
+  }
+  $('subjectSearch').addEventListener('input',renderSubjects);
+  $('addSubjectBtn').addEventListener('click',()=>$('subjectDialog').showModal());
+  $('cancelSubject').addEventListener('click',()=>$('subjectDialog').close());
+  $('subjectForm').addEventListener('submit',e=>{
+    e.preventDefault();data.subjects.push({id:++nextId,name:$('subjectName').value.trim(),description:$('subjectDescription').value.trim(),emoji:$('subjectEmoji').value});
+    save();e.target.reset();$('subjectDialog').close();renderSubjects();toast('Matéria adicionada! 📚');
+  });
+
+  function renderNotes(){
+    $('notesList').innerHTML=data.notes.length?[...data.notes].reverse().map(n=>`<article class="note-card"><h4>${esc(n.title)} ${n.subject?'· '+esc(n.subject):''}</h4><p>${esc(n.body)}</p><button class="text-btn" data-note-delete="${n.id}">Excluir anotação</button></article>`).join(''):'<div class="empty">Você ainda não salvou anotações. Escreva a primeira acima! 📝</div>';
+    document.querySelectorAll('[data-note-delete]').forEach(b=>b.addEventListener('click',()=>{
+      if(confirm('Deseja apagar esta anotação?')){data.notes=data.notes.filter(n=>n.id!=b.dataset.noteDelete);save();renderNotes();toast('Anotação apagada.');}
+    }));
+  }
+  $('noteForm').addEventListener('submit',e=>{
+    e.preventDefault();data.notes.push({id:++nextId,title:$('noteTitle').value.trim(),subject:$('noteSubject').value.trim(),body:$('noteBody').value.trim(),createdAt:Date.now()});
+    save();e.target.reset();renderNotes();toast('Anotação salva! 💜');
+  });
+
+  renderTasks();renderCalendar();renderProjects();renderSubjects();renderNotes();
+})();
+</script>
+</body>
+</html>

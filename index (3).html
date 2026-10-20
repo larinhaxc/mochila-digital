@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fidget Spinner | Spin World</title>
+  <style>
+    :root { --purple:#7158d5; --lavender:#eee9ff; --ink:#292443; --pink:#ff8fc7; --blue:#8fdcff; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:Arial, Helvetica, sans-serif; color:var(--ink); background:linear-gradient(135deg,#f5f1ff,#eaf8ff 55%,#fff0f8); }
+    header { background:rgba(255,255,255,.88); border-bottom:1px solid #e5defd; position:sticky; top:0; z-index:10; backdrop-filter:blur(12px); }
+    .nav { max-width:1100px; margin:auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+    .brand { font-weight:900; font-size:1.15rem; color:var(--purple); letter-spacing:.4px; }
+    nav { display:flex; gap:8px; flex-wrap:wrap; }
+    nav a, .btn { text-decoration:none; border:0; border-radius:999px; padding:10px 15px; font-weight:700; cursor:pointer; display:inline-block; }
+    nav a { color:#514779; } nav a:hover { background:var(--lavender); }
+    .btn { color:white; background:var(--purple); box-shadow:0 7px 18px #7158d533; transition:transform .2s, background .2s; }
+    .btn:hover { transform:translateY(-2px); background:#5d45bd; }
+    .btn.secondary { background:white; color:var(--purple); border:1px solid #d7ccff; box-shadow:none; }
+    main { max-width:1100px; margin:auto; padding:34px 20px 60px; }
+    .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; padding:34px 0 50px; }
+    .eyebrow { display:inline-block; background:#fff; border:1px solid #e5defd; color:var(--purple); border-radius:999px; padding:8px 12px; font-size:.82rem; font-weight:800; }
+    h1 { font-size:clamp(2.4rem,6vw,4.6rem); line-height:1.02; margin:18px 0; letter-spacing:-2px; }
+    h1 span { color:var(--purple); }
+    .lead { font-size:1.1rem; line-height:1.75; color:#655d7c; max-width:590px; }
+    .hero-art { min-height:300px; display:grid; place-items:center; border-radius:34px; background:radial-gradient(circle at 30% 20%,#fff 0 7%,transparent 8%),linear-gradient(145deg,#c9bbff,#9be5ff 55%,#ffc8e4); box-shadow:0 25px 60px #7160b52b; overflow:hidden; position:relative; }
+    .spinner { width:220px; height:220px; position:relative; animation:spin 7s linear infinite; filter:drop-shadow(0 15px 10px #51477940); }
+    .spinner.paused { animation-play-state:paused; }
+    .arm { position:absolute; width:94px; height:94px; border-radius:50%; background:linear-gradient(145deg,#ff91ca,#ff5b9e); border:8px solid #fff; box-shadow:inset -7px -7px 12px #b92e7040; }
+    .arm:nth-child(1) { left:63px; top:0; } .arm:nth-child(2) { right:0; bottom:16px; background:linear-gradient(145deg,#91e5ff,#4abbe9); } .arm:nth-child(3) { left:0; bottom:16px; background:linear-gradient(145deg,#c9baff,#8067e8); }
+    .hub { position:absolute; left:76px; top:76px; width:68px; height:68px; border-radius:50%; background:linear-gradient(145deg,#fff,#e4defd); border:9px solid #fff; box-shadow:0 0 0 5px #7864cf; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .hint { position:absolute; bottom:16px; right:18px; background:#ffffffc9; padding:8px 12px; border-radius:999px; font-size:.8rem; font-weight:700; }
+    section { margin-top:34px; }
+    .section-title { font-size:clamp(1.7rem,4vw,2.4rem); margin:0 0 12px; }
+    .section-sub { color:#716987; line-height:1.7; margin-top:0; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .card { background:#ffffffc9; border:1px solid #e7e0fb; border-radius:22px; padding:22px; box-shadow:0 10px 28px #5147790c; }
+    .card .emoji { font-size:2rem; } .card h3 { margin:12px 0 8px; } .card p { color:#6b647e; line-height:1.65; margin-bottom:0; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .panel { padding:24px; border-radius:24px; background:linear-gradient(135deg,#fff,#f0ebff); border:1px solid #e4dcff; }
+    .panel ul { padding-left:20px; color:#625b78; line-height:1.9; }
+    .game { text-align:center; background:#292443; color:white; border-radius:28px; padding:28px; }
+    .game p { color:#ded8f6; line-height:1.6; }
+    .timer { font-size:2.5rem; font-weight:900; margin:14px 0; font-variant-numeric:tabular-nums; }
+    .game .btn.secondary { margin-left:8px; }
+    .fact { background:linear-gradient(110deg,#fce3f1,#e7e1ff,#ddf6ff); border-radius:24px; padding:24px; line-height:1.8; }
+    footer { text-align:center; padding:25px 20px; color:#766e8c; border-top:1px solid #e5defd; background:#ffffff80; }
+    .back-top { display:inline-block; margin-top:12px; }
+    @media(max-width:760px) { .hero { grid-template-columns:1fr; padding-top:20px; } .hero-art { min-height:260px; } .cards,.two-col { grid-template-columns:1fr; } .spinner { transform:scale(.85); } nav { width:100%; } nav a { padding:8px 10px; font-size:.9rem; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">✨ SPIN WORLD</div>
+    <nav aria-label="Navegação principal">
+      <a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#modelos">Modelos</a><a href="#desafio">Desafio</a>
+    </nav>
+  </div>
+</header>
+<main id="inicio">
+  <div class="hero">
+    <div>
+      <span class="eyebrow">UM BRINQUEDO, MUITAS DESCOBERTAS</span>
+      <h1>Entre no mundo do <span>Fidget Spinner!</span></h1>
+      <p class="lead">Conheça o brinquedo giratório que conquistou muita gente. Descubra como funciona, veja seus modelos e experimente um pequeno desafio nesta página.</p>
+      <a class="btn" href="#sobre">Começar a explorar ↓</a>
+      <a class="btn secondary" href="https://larinhaxc.github.io/mochila-digital/" target="_self" rel="noopener">← Voltar para minha Mochila</a>
+    </div>
+    <div class="hero-art" aria-label="Ilustração animada de um fidget spinner colorido" role="img">
+      <div class="spinner" id="spinner">
+        <div class="arm"></div><div class="arm"></div><div class="arm"></div><div class="hub"></div>
+      </div>
+      <span class="hint">O spinner está girando!</span>
+    </div>
+  </div>
+
+  <section id="sobre">
+    <h2 class="section-title">🌀 O que é um Fidget Spinner?</h2>
+    <p class="section-sub">É um pequeno brinquedo que gira ao redor de um rolamento central. A pessoa segura o centro entre os dedos e dá um impulso para fazê-lo rodar.</p>
+    <div class="cards">
+      <article class="card"><div class="emoji">⚙️</div><h3>Como funciona?</h3><p>O rolamento permite que as partes externas girem ao redor do centro. Depois do impulso, o brinquedo continua rodando por um tempo.</p></article>
+      <article class="card"><div class="emoji">🌎</div><h3>Popularidade</h3><p>O Fidget Spinner ficou muito popular em vários países em 2017, aparecendo em escolas, lojas e vídeos na internet.</p></article>
+      <article class="card"><div class="emoji">🎯</div><h3>Para que serve?</h3><p>Muitas pessoas usam para brincar e fazer truques com os dedos. Ele não substitui acompanhamento profissional para questões de atenção ou ansiedade.</p></article>
+    </div>
+  </section>
+
+  <section id="modelos">
+    <h2 class="section-title">🎨 Modelos diferentes</h2>
+    <p class="section-sub">Existem vários estilos, materiais e formatos. Estes são alguns exemplos:</p>
+    <div class="cards">
+      <article class="card"><div class="emoji">🌈</div><h3>Colorido</h3><p>Tem cores vivas e um visual divertido, ótimo para quem gosta de brinquedos chamativos.</p></article>
+      <article class="card"><div class="emoji">🪙</div><h3>De metal</h3><p>Costuma ter uma aparência brilhante e pode ser mais pesado que os modelos de plástico.</p></article>
+      <article class="card"><div class="emoji">💡</div><h3>Com luzes</h3><p>Alguns modelos possuem luzes que criam efeitos visuais quando o brinquedo está girando.</p></article>
+    </div>
+  </section>
+
+  <section class="two-col">
+    <div class="panel">
+      <h2 class="section-title">🕹️ Como brincar</h2>
+      <ul><li>Segure o centro entre dois dedos.</li><li>Use a outra mão para dar um impulso em uma das pontas.</li><li>Observe o movimento e tente fazer truques simples com cuidado.</li><li>Brinque longe do rosto e não use peças danificadas.</li></ul>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">🔎 Você sabia?</h2>
+      <p class="section-sub">O movimento do spinner é um exemplo fácil de observar de rotação. O rolamento reduz o atrito no centro e ajuda o brinquedo a girar.</p>
+      <p><strong>Curiosidade:</strong> quanto maior o atrito com o ar e no rolamento, mais rapidamente o spinner perde velocidade.</p>
+    </div>
+  </section>
+
+  <section id="desafio">
+    <div class="game">
+      <h2 class="section-title">⏱️ Desafio do giro</h2>
+      <p>Clique em “Iniciar desafio” para começar uma contagem de 10 segundos. Enquanto isso, observe o spinner ilustrado acima!</p>
+      <div class="timer" id="timer">00:10</div>
+      <button class="btn" id="startBtn" type="button">▶ Iniciar desafio</button>
+      <button class="btn secondary" id="resetBtn" type="button">↻ Reiniciar</button>
+      <p id="message" aria-live="polite">Preparada? Vamos lá!</p>
+    </div>
+  </section>
+  <div style="text-align:center"><a class="btn secondary back-top" href="#inicio">↑ Voltar ao início da página</a></div>
+</main>
+<footer>
+  <strong>✨ Spin World — Fidget Spinner</strong><br>
+  Página educativa criada com HTML, CSS e JavaScript.<br>
+  <a class="btn secondary back-top" href="https://larinhaxc.github.io/mochila-digital/" target="_self" rel="noopener">🏠 Voltar para a página inicial da Mochila Digital</a>
+</footer>
+<script>
+  const timerEl = document.getElementById('timer');
+  const messageEl = document.getElementById('message');
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const spinner = document.getElementById('spinner');
+  let remaining = 10;
+  let interval = null;
+  function showTime() {
+    timerEl.textContent = `00:${String(remaining).padStart(2, '0')}`;
+  }
+  startBtn.addEventListener('click', () => {
+    if (interval) return;
+    if (remaining === 0) remaining = 10;
+    spinner.classList.remove('paused');
+    messageEl.textContent = 'O desafio começou! Observe o movimento.';
+    showTime();
+    interval = setInterval(() => {
+      remaining--;
+      showTime();
+      if (remaining <= 0) {
+        clearInterval(interval);
+        interval = null;
+        messageEl.textContent = 'Tempo encerrado! Muito bem! 🎉';
+      }
+    }, 1000);
+  });
+  resetBtn.addEventListener('click', () => {
+    clearInterval(interval);
+    interval = null;
+    remaining = 10;
+    showTime();
+    messageEl.textContent = 'Preparada? Vamos lá!';
+    spinner.classList.remove('paused');
+  });
+  // O desenho gira continuamente; este botão pode pausar ao clicar na ilustração.
+  spinner.addEventListener('click', () => spinner.classList.toggle('paused'));
+  showTime();
+</script>
+</body>
+</html>

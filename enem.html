@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENEM Dimensional | Rick Sanchez</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --green: #a6ff00;
+    --blue: #45d9ff;
+    --purple: #a879ff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080d13;
+    color: #f0f5f2;
+}
+
+header {
+    background: #080d13;
+    border-bottom: 1px solid var(--green);
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: var(--green);
+    font-size: 22px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 9px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: var(--green);
+}
+
+/* TELA DE APRESENTAÇÃO */
+
+.hero {
+    min-height: 90vh;
+    padding: 65px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    background:
+    radial-gradient(circle at 80% 50%, #17432e, transparent 38%),
+    linear-gradient(120deg, #080d13, #101b27);
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 280px;
+}
+
+.tag {
+    color: var(--green);
+    letter-spacing: 3px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 6vw, 65px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: var(--green);
+    text-shadow: 0 0 18px #8cff0080;
+}
+
+.hero p {
+    color: #c5d0d5;
+    line-height: 1.8;
+    max-width: 550px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 17px 27px;
+    background: var(--green);
+    color: #10170a;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .3s;
+    box-shadow: 0 0 15px #a6ff0060;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px #a6ff00;
+}
+
+.rick {
+    flex: 0 1 320px;
+    text-align: center;
+}
+
+.rick img {
+    width: 100%;
+    max-width: 290px;
+    max-height: 410px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 22px #a6ff0080);
+}
+
+.portal {
+    border: 5px solid var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 25px var(--green),
+    inset 0 0 25px var(--green);
+    padding: 12px;
+    display: inline-block;
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 15px var(--green); }
+    to { box-shadow: 0 0 35px var(--green); }
+}
+
+/* CONTEÚDO */
+
+section {
+    padding: 75px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 34px;
+    color: var(--green);
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: #aebbc2;
+    line-height: 1.7;
+}
+
+.about {
+    background: #101923;
+}
+
+.about-content {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+    line-height: 1.9;
+    color: #d5dfe4;
+    font-size: 17px;
+}
+
+.about-content p {
+    margin-bottom: 18px;
+}
+
+.benefits {
+    background: #0c131c;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: #121e29;
+    border: 1px solid #334b51;
+    border-radius: 14px;
+    padding: 28px;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--green);
+    box-shadow: 0 0 18px #a6ff0020;
+}
+
+.emoji {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: var(--green);
+    margin-bottom: 13px;
+}
+
+.card p {
+    color: #bdc9cf;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.quote {
+    background: linear-gradient(120deg, #153c2b, #17243b);
+    text-align: center;
+    padding: 55px 25px;
+    border-radius: 18px;
+    border: 1px solid var(--green);
+}
+
+.quote h2 {
+    color: var(--green);
+    margin-bottom: 20px;
+}
+
+.quote p {
+    font-size: 19px;
+    line-height: 1.8;
+}
+
+.quote small {
+    display: block;
+    margin-top: 20px;
+    color: var(--green);
+}
+
+footer {
+    background: #05090e;
+    padding: 30px 8%;
+    text-align: center;
+    color: #aebbc2;
+    line-height: 2;
+    font-size: 13px;
+}
+
+footer a {
+    color: var(--green);
+}
+
+@media(max-width: 650px) {
+    header {
+        justify-content: center;
+    }
+
+    nav {
+        text-align: center;
+        line-height: 2.5;
+    }
+
+    .hero {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🧪 ENEM DIMENSIONAL</div>
+
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#importancia">Importância</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#oportunidades">Oportunidades</a>
+    </nav>
+</header>
+
+<!-- TELA INICIAL -->
+
+<div class="hero" id="inicio">
+
+    <div class="hero-text">
+
+        <div class="tag">
+            PORTAL INTERDIMENSIONAL DO CONHECIMENTO
+        </div>
+
+        <h1>
+            SEU FUTURO<br>
+            COMEÇA COM O <span>ENEM!</span>
+        </h1>
+
+        <p>
+            Já imaginou abrir um portal para novas oportunidades?
+            O ENEM pode ser o primeiro passo para transformar
+            seus sonhos em realidade. Prepare-se para conhecer
+            os caminhos que sua nota pode abrir!
+        </p>
+
+        <a href="#importancia" class="btn">
+            DESCOBRIR O UNIVERSO DO ENEM →
+        </a>
+
+    </div>
+
+    <div class="rick">
+
+        <div class="portal">
+
+            <img
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/Rick_Sanchez_MultiVersus.png"
+            alt="Rick Sanchez">
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- IMPORTÂNCIA -->
+
+<section class="about" id="importancia">
+
+    <div class="section-title">
+        <h2>🌌 Por que o ENEM é importante?</h2>
+        <p>Uma prova que pode mudar o rumo da sua história.</p>
+    </div>
+
+    <div class="about-content">
+
+        <p>
+            O Exame Nacional do Ensino Médio (ENEM) é uma avaliação
+            criada para analisar os conhecimentos adquiridos pelos
+            estudantes durante o ensino médio.
+        </p>
+
+        <p>
+            Sua importância está nas oportunidades que oferece para
+            quem deseja continuar os estudos e ingressar em uma
+            universidade. Além disso, ajuda o estudante a conhecer
+            seus pontos fortes e aquilo que precisa melhorar.
+        </p>
+
+        <p>
+            O ENEM representa uma oportunidade de crescimento,
+            aprendizado e construção de um futuro com mais
+            possibilidades.
+        </p>
+
+    </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+
+<section class="benefits" id="beneficios">
+
+    <div class="section-title">
+        <h2>⚡ Benefícios de fazer o ENEM</h2>
+        <p>Veja o que essa prova pode proporcionar!</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="emoji">🎓</div>
+            <h3>Acesso à faculdade</h3>
+            <p>
+                Permite concorrer a vagas em universidades públicas
+                e particulares por meio de diferentes processos seletivos.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">💰</div>
+            <h3>Bolsas de estudo</h3>
+            <p>
+                Possibilita concorrer a bolsas integrais ou parciais
+                em faculdades particulares por meio do ProUni.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🚀</div>
+            <h3>Novas oportunidades</h3>
+            <p>
+                Amplia as possibilidades de formação acadêmica
+                e de preparação para o mercado de trabalho.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🧠</div>
+            <h3>Conhecimento</h3>
+            <p>
+                Ajuda a desenvolver interpretação, raciocínio,
+                escrita e conhecimentos em diferentes áreas.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- OPORTUNIDADES -->
+
+<section id="oportunidades">
+
+    <div class="section-title">
+        <h2>🌀 O que você pode fazer com sua nota?</h2>
+        <p>Escolha seu próximo destino dimensional!</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="emoji">🏛️</div>
+            <h3>SISU</h3>
+            <p>
+                Sistema de Seleção Unificada. Utiliza a nota do ENEM
+                para selecionar estudantes para vagas em instituições
+                públicas de ensino superior.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">📚</div>
+            <h3>PROUNI</h3>
+            <p>
+                Programa Universidade para Todos. Oferece bolsas
+                integrais (100%) e parciais (50%) em faculdades
+                particulares para quem atende aos requisitos.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">💳</div>
+            <h3>FIES</h3>
+            <p>
+                Fundo de Financiamento Estudantil. Possibilita
+                financiar os estudos em instituições privadas
+                participantes, conforme as regras do programa.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🌍</div>
+            <h3>Universidades em Portugal</h3>
+            <p>
+                Algumas instituições portuguesas aceitam os
+                resultados do ENEM em seus processos de seleção,
+                conforme os acordos e requisitos de cada instituição.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- MENSAGEM FINAL -->
+
+<section>
+
+    <div class="quote">
+
+        <h2>🧪 UMA MENSAGEM DO RICK!</h2>
+
+        <p>
+            "O universo é cheio de possibilidades.
+            Não deixe que o medo de uma prova impeça
+            você de descobrir até onde pode chegar!"
+        </p>
+
+        <small>SEU FUTURO NÃO TEM LIMITES!</small>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p>ENEM DIMENSIONAL — Conhecimento abre portais! 💚</p>
+
+    <p>
+        Projeto educativo sobre a importância do Exame Nacional
+        do Ensino Médio.
+    </p>
+
+    <p>
+        Fontes:
+        <a href="https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem" target="_blank">INEP</a> |
+        <a href="https://acessounico.mec.gov.br/" target="_blank">MEC</a>
+    </p>
+
+    <p>
+        Imagem do personagem:
+        <a href="https://commons.wikimedia.org/wiki/File:Rick_Sanchez_MultiVersus.png" target="_blank">Wikimedia Commons</a>.
+    </p>
+
+    <p>© 2026 — Trabalho escolar educativo.</p>
+
+    <a href="#inicio">↑ VOLTAR AO INÍCIO</a>
+
+</footer>
+
+</body>
+</html>

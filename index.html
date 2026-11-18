@@ -41,7 +41,19 @@
     .hero-actions{display:flex;flex-wrap:wrap;gap:9px}
     .btn{border:0;border-radius:12px;padding:11px 15px;font-size:12px;font-weight:800;transition:.18s}
     .btn:hover{transform:translateY(-1px)}.btn-primary{background:#6276d8;color:white;box-shadow:0 6px 14px #6276d833}.btn-light{background:#ffffffbb;color:#4c5b9d;border:1px solid #fff}
-    .hero-art{font-size:clamp(65px,9vw,115px);filter:drop-shadow(0 10px 8px #8b8bd333);transform:rotate(7deg);flex-shrink:0;margin-right:20px}
+    .hero-art {
+  width: 250px;
+  flex-shrink: 0;
+  margin-right: 15px;
+  filter: drop-shadow(0 10px 12px #8b8bd333);
+}
+
+.hero-art img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
     .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 14px}
     .section-head h3{font-size:18px;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:5px 0 0}
     .text-btn{border:0;background:transparent;color:#6373cf;font-size:12px;font-weight:800}
@@ -123,7 +135,9 @@
 </p>
           <div class="hero-actions"><button class="btn btn-primary" data-go="planner">📅 Abrir meu planner</button><button class="btn btn-light" data-go="projetos">🖼️ Ver meus projetos</button></div>
         </div>
-        <div class="hero-art" aria-hidden="true">🌺👽</div>
+        <div class="hero-art">
+  <img src="stitch.png" alt="Stitch azul">
+</div>
       </div>
       <div class="section-head"><div><h3>Seu espaço, suas regras ✨</h3><p>Escolha por onde quer começar.</p></div></div>
       <div class="quick-grid">
